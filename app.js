@@ -9,8 +9,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-// const items = ["Buy Food", "Cook Food", "Eat Food"];
-// const workItems = [];
 
 require('dotenv').config()
 const srvr = process.env.N1_KEY;
@@ -51,8 +49,6 @@ const listSchema =  {
 
 const List = mongoose.model("List", listSchema);
 
-
-//root
 app.get("/", function(req, res) {
 
 // const day = date.getDate();
@@ -94,7 +90,6 @@ app.post("/", function(req, res){
       foundList.items.push(item);
       foundList.save();
       res.redirect("/" + listName);
-      //goes to custom list
     });
   }
 
@@ -102,19 +97,10 @@ app.post("/", function(req, res){
   
 });
 
-//delete checkbox
 app.post("/delete", (req, res)=>{
   const checkItemId = req.body.checkbox;
   const listName = req.body.listName;
 
-  // if(listName === "Today"){
-  //   Item.findByIdAndRemove(checkItemId, (error)=>{
-  //     if(!error){
-  //       res.redirect("/");
-  //       console.log("Trueee");
-  //     }
-  //   });
-  // }
 
   if(listName === "Today"){
     Item.findByIdAndRemove(checkItemId, (error)=>{
@@ -165,10 +151,6 @@ app.get("/:customListName", (req, res)=>{
 app.get("/about", function(req, res){
   res.render("about");
 });
-
-// app.listen(process.env.PORT || 3000, function() {
-//   console.log("Server started");
-// });
 
 let port = process.env.PORT;
 if (port == null || port == "") {
